@@ -13,6 +13,18 @@
 - (void)applicationWillTerminate:(UIApplication *)application{
     SocketClass *socket = [[SocketClass alloc] init];
     [socket SendSocket:@"DONE"];
+    
+    
+    //make sure the socket message is sent
+    int i = 0;
+    while (i < 100)
+    {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate distantFuture]];
+        i++;
+    }
+    
+    
     return %orig;
 }
 %end
