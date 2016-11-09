@@ -37,7 +37,20 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
     NSMutableURLRequest *mutableReqeust = [request mutableCopy];
 //    mutableReqeust = [self redirectHostInRequset:mutableReqeust];
     SocketClass *socket = [[SocketClass alloc] init];
-    [socket SendSocket:[request.URL absoluteString]];
+    NSMutableString * socketStr = [[NSMutableString alloc] init];
+//    [socket SendSocket:[request.URL absoluteString]];
+    [socketStr appendString:@"url:"];
+    [socketStr appendString:[request.URL absoluteString]];
+    [socketStr appendString:@"\n"];
+    NSData *bodyData = [request HTTPBody];
+    NSString *bodyStr = [[NSString alloc] initWithData:bodyData encoding:NSUTF8StringEncoding];
+    if([bodyStr length]>0){
+//        NSString *decoded = (__bridge_transfer NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(NULL, (CFStringRef)bodyStr, CFSTR(""), kCFStringEncodingUTF8);
+        NSString *decoded = [bodyStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [socketStr appendString:@"body:"];
+        [socketStr appendString:decoded];
+    }
+    [socket SendSocket:socketStr];
     
     return mutableReqeust;
 }

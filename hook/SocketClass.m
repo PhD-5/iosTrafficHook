@@ -9,7 +9,7 @@
 #import "SocketClass.h"
 
 
-//#define PREFERENCE_PATH @"/var/mobile/Library/Preferences/com.lw.ActionListen.plist"
+#define PREFERENCE_PATH @"/var/mobile/Library/Preferences/SocketServerConfig.plist"
 
 //NSString *gstring ;
 
@@ -22,7 +22,7 @@
     
 //    NSString *processName = [[NSProcessInfo processInfo] processName];
   
-//    NSDictionary *prefDic = [NSDictionary dictionaryWithContentsOfFile:PREFERENCE_PATH];
+    NSDictionary *prefDic = [NSDictionary dictionaryWithContentsOfFile:PREFERENCE_PATH];
 //    NSString *isListening = [prefDic objectForKey:@"isListening"];
 //    NSLog(@"lw: islistening %@",isListening);
 //    if (TRUE)
@@ -31,10 +31,10 @@
             
             
             
-//            NSString *IPaddress = [prefDic objectForKey:@"IPADDRESS"];
-//            NSString *IPport = [prefDic objectForKey:@"Port"];
-            NSString *IPaddress = @"192.168.3.209";
-            NSString *IPport = @"9001";
+            NSString *IPaddress = [prefDic objectForKey:@"IP"];
+            NSString *IPport = [prefDic objectForKey:@"PORT"];
+//            NSString *IPaddress = @"192.168.3.209";
+//            NSString *IPport = @"9001";
 //            NSLog(@"IPaddress is qwe %@,%@",IPaddress,string_send);
             const char *sendmsg = [string_send UTF8String];
             int sockfd;
